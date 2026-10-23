@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>blun4ik</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Фоновый трек тёмного принца (играет с 0 секунды) -->
+    <audio id="bg-music" src="music.mp3" loop></audio>
+
+    <!-- Заставка прелоадера -->
+    <div class="overlay" id="overlay">
+        <button class="enter-btn" id="enter-btn">Press Enter / Click To Continue</button>
+    </div>
+
+    <!-- Основной контент страницы -->
+    <div class="container hidden" id="main-content">
+        <h1>blun4ik</h1>
+        
+        <!-- Блок статусов -->
+        <div class="status-box">
+            <p>IP: <span id="ip">Определяем...</span></p>
+            <p>Устройство: <span id="device">Определяем...</span></p>
+            <p>Статус: <span>Готов к использованию 🚸</span></p>
+        </div>
+
+        <!-- Твой текст песни -->
+        <div class="quote">
+            <p>
+                 🚬 Туши бычок, потом сходи с ума<br>
+                На моих пальцах кровь, я знаю, это не со зла<br>
+                Сказала всё, скорей запри сарай<br>
+                Ты крутишь у виска ножом<br>
+                Утекай, в подворотне я буду их ждать<br>
+                Хочешь нас насадить на крючок<br>
+                Я знаю, ты очень устала бежать<br>
+                Я уже падаю с ног  🚬
+            </p>
+        </div>
+
+        <!-- Языковая панель -->
+        <div class="languages">
+            <span>UA</span> <span>RU</span> <span>EN</span>
+        </div>
+
+        <!-- Кнопки с вашими ссылками -->
+        <div class="links">
+            <a href="https://t.me" target="_blank" class="btn">Telegram Канал</a>
+            <a href="https://t.me" target="_blank" class="btn">Бот обратной связи</a>
+            <a href="https://tiktok.com" target="_blank" class="btn">TikTok</a>
+            <a href="https://twitch.tv" target="_blank" class="btn">Twitch</a>
+        </div>
+    </div>
+
+    <script>
+        const enterBtn = document.getElementById('enter-btn');
+        const overlay = document.getElementById('overlay');
+        const mainContent = document.getElementById('main-content');
+        const music = document.getElementById('bg-music');
+
+        function startPage() {
+            music.currentTime = 0; 
+            music.play().catch(err => console.log("Браузер заблокировал автозвук:", err));
+            overlay.classList.add('fade-out');
+            setTimeout(() => {
+                overlay.style.display = 'none';
+                mainContent.classList.remove('hidden');
+                mainContent.classList.add('fade-in');
+            }, 500);
+        }
+
+        enterBtn.addEventListener('click', startPage);
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') startPage();
+        });
+
+        fetch('https://ipify.org')
+            .then(res => res.json())
+            .then(data => document.getElementById('ip').innerText = data.ip)
+            .catch(() => document.getElementById('ip').innerText = '127.0.0.1');
+        
+        document.getElementById('device').innerText = navigator.userAgent.includes('Mobile') ? 'Смартфон' : 'ПК';
+    </script>
+</body>
+</html>
