@@ -6,9 +6,9 @@
     <title>blun4ik</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="crt">
 
-    <!-- Фоновый трек тёмного принца (играет с 0 секунды) -->
+    <!-- Фоновый трек -->
     <audio id="bg-music" src="music.mp3" loop></audio>
 
     <!-- Заставка прелоадера -->
@@ -18,26 +18,43 @@
 
     <!-- Основной контент страницы -->
     <div class="container hidden" id="main-content">
-        <h1>blun4ik</h1>
         
-        <!-- Блок статусов -->
+        <!-- Заголовок с эффектом мерцания и глитча -->
+        <h1 class="neon-title" data-text="blun4ik">blun4ik</h1>
+        
+        <!-- Анимированный пиксельный бычок сигареты с дымом -->
+        <div class="pixel-cigarette-wrapper">
+            <div class="smoke-particles">
+                <span style="--i:1;"></span>
+                <span style="--i:2;"></span>
+                <span style="--i:3;"></span>
+            </div>
+            <div class="pixel-cigarette">
+                <div class="filter"></div>
+                <div class="ash"></div>
+            </div>
+        </div>
+        
+        <!-- Блок статусов (Терминал) -->
         <div class="status-box">
-            <p>IP: <span id="ip">Определяем...</span></p>
-            <p>Устройство: <span id="device">Определяем...</span></p>
-            <p>Статус: <span>Готов к использованию 🚸</span></p>
+            <p>> IP-АДРЕС: <span id="ip">Определяем...</span></p>
+            <p>> СИСТЕМА: <span id="os">Определяем...</span></p>
+            <p>> БРАУЗЕР: <span id="browser">Определяем...</span></p>
+            <p>> ТИП УСТРОЙСТВА: <span id="device">Определяем...</span></p>
+            <p>> СТАТУС СЕССИИ: <span class="blink-green">Готов к использованию 🚬</span></p>
         </div>
 
-        <!-- Твой текст песни -->
+        <!-- Текст песни -->
         <div class="quote">
             <p>
-                 🚬 Туши бычок, потом сходи с ума<br>
+                🚬 Туши бычок, потом сходи с ума<br>
                 На моих пальцах кровь, я знаю, это не со зла<br>
                 Сказала всё, скорей запри сарай<br>
                 Ты крутишь у виска ножом<br>
                 Утекай, в подворотне я буду их ждать<br>
                 Хочешь нас насадить на крючок<br>
                 Я знаю, ты очень устала бежать<br>
-                Я уже падаю с ног  🚬
+                Я уже падаю с ног 🚬
             </p>
         </div>
 
@@ -77,12 +94,35 @@
             if (e.key === 'Enter') startPage();
         });
 
+        // 1. Запрос IP адреса
         fetch('https://ipify.org')
             .then(res => res.json())
             .then(data => document.getElementById('ip').innerText = data.ip)
             .catch(() => document.getElementById('ip').innerText = '127.0.0.1');
         
-        document.getElementById('device').innerText = navigator.userAgent.includes('Mobile') ? 'Смартфон' : 'ПК';
+        // 2. Определение типа устройства
+        const ua = navigator.userAgent;
+        document.getElementById('device').innerText = ua.includes('Mobile') ? 'Смартфон / Планшет' : 'Персональный компьютер (ПК)';
+
+        // 3. Автоопределение Операционной Системы (ОС)
+        let userOS = "Неизвестная ОС";
+        if (ua.indexOf("Windows NT 10.0") !== -1) userOS = "Windows 10/11";
+        else if (ua.indexOf("Windows NT 6.2") !== -1) userOS = "Windows 8";
+        else if (ua.indexOf("Windows NT 6.1") !== -1) userOS = "Windows 7";
+        else if (ua.indexOf("Mac") !== -1) userOS = "macOS";
+        else if (ua.indexOf("Android") !== -1) userOS = "Android";
+        else if (ua.indexOf("iPhone") !== -1 || ua.indexOf("iPad") !== -1) userOS = "iOS (Apple)";
+        else if (ua.indexOf("Linux") !== -1) userOS = "Linux";
+        document.getElementById('os').innerText = userOS;
+
+        // 4. Автоопределение Браузера
+        let userBrowser = "Неизвестный браузер";
+        if (ua.indexOf("Chrome") !== -1 && ua.indexOf("Safari") !== -1 && ua.indexOf("Edge") === -1) userBrowser = "Google Chrome";
+        else if (ua.indexOf("Safari") !== -1 && ua.indexOf("Chrome") === -1) userBrowser = "Apple Safari";
+        else if (ua.indexOf("Firefox") !== -1) userBrowser = "Mozilla Firefox";
+        else if (ua.indexOf("Edge") !== -1) userBrowser = "Microsoft Edge";
+        else if (ua.indexOf("OPR") !== -1 || ua.indexOf("Opera") !== -1) userBrowser = "Opera";
+        document.getElementById('browser').innerText = userBrowser;
     </script>
 </body>
 </html>
