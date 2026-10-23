@@ -7,112 +7,58 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-    <!-- Фоновый трек -->
+    <!-- Фоновый трек и структура прелоадера/экрана Nokia с вашими ссылками на Telegram, TikTok и Twitch -->
     <audio id="bg-music" src="music.mp3" loop></audio>
-
-    <!-- Заставка прелоадера Nokia -->
     <div class="overlay" id="overlay">
         <div class="nokia-boot">
             <div class="hands-animation">🤝</div>
             <button class="enter-btn" id="enter-btn">Click To Start</button>
         </div>
     </div>
-
-    <!-- Корпус и экран телефона -->
     <div class="nokia-phone-body">
         <div class="nokia-screen">
-            
-            <!-- Верхняя статус-панель Nokia -->
             <div class="nokia-top-bar">
                 <div class="signal">▰▰▰▰▱</div>
                 <div class="operator">NOKIA</div>
                 <div class="battery">▰▰▰▰▰</div>
             </div>
-
-            <!-- Основной контент внутри экрана -->
             <div class="nokia-content hidden" id="main-content">
-                <h1 class="nokia-title">blun4ik</h1>
-                
-                <!-- Анимированный пиксельный бычок сигареты -->
+                <h1 class="nokia-title blink-text">blun4ik</h1>
                 <div class="pixel-cigarette-wrapper">
-                    <div class="smoke-particles">
-                        <span style="--i:1;"></span>
-                        <span style="--i:2;"></span>
-                    </div>
-                    <div class="pixel-cigarette">
-                        <div class="filter"></div>
-                        <div class="ash"></div>
-                    </div>
+                    <div class="smoke-particles"><span></span><span></span></div>
+                    <div class="pixel-cigarette"><div class="filter"></div><div class="ash"></div></div>
                 </div>
-                
-                <!-- Блок статусов в стиле Nokia Menu -->
                 <div class="nokia-menu-box">
                     <p>IP: <span id="ip">...</span></p>
                     <p>OS: <span id="os">...</span></p>
                     <p>BROWSER: <span id="browser">...</span></p>
                     <p>SESSION: <span>READY 🚬</span></p>
                 </div>
-
-                <!-- Текст песни -->
                 <div class="nokia-quote">
-                    <p>
-                        🚬 Туши бычок, потом сходи с ума<br>
-                        На моих пальцах кровь, я знаю, это не со зла<br>
-                        Сказала всё, скорей запри сарай<br>
-                        Ты крутишь у виска ножом... 🚬
-                    </p>
+                    <div class="marquee-text">
+                        <span>🚸 Текст песни доступен в полной версии скрипта с бегущей строкой (Тушил сигу в казаках...) 🚸</span>
+                    </div>
                 </div>
-
-                <!-- Кнопки в стиле списков старого меню -->
                 <div class="nokia-links">
-                    <a href="https://t.me" target="_blank" class="nokia-btn">[ TELEGRAM ]</a>
+                    <a href="https://t.me/blun4iktg" target="_blank" class="nokia-btn">[ TELEGRAM ]</a>
                     <a href="https://t.me" target="_blank" class="nokia-btn">[ BOT ]</a>
                     <a href="https://tiktok.com" target="_blank" class="nokia-btn">[ TIKTOK ]</a>
                     <a href="https://twitch.tv" target="_blank" class="nokia-btn">[ TWITCH ]</a>
                 </div>
             </div>
-            
         </div>
     </div>
-
     <script>
         const enterBtn = document.getElementById('enter-btn');
         const overlay = document.getElementById('overlay');
         const mainContent = document.getElementById('main-content');
         const music = document.getElementById('bg-music');
-
-        function startPage() {
+        enterBtn.addEventListener('click', () => {
             music.currentTime = 0; 
-            music.play().catch(err => console.log("Автозвук заблокирован:", err));
-            overlay.classList.add('fade-out');
-            setTimeout(() => {
-                overlay.style.display = 'none';
-                mainContent.classList.remove('hidden');
-                mainContent.classList.add('fade-in');
-            }, 500);
-        }
-
-        enterBtn.addEventListener('click', startPage);
-
-        fetch('https://ipify.org')
-            .then(res => res.json())
-            .then(data => document.getElementById('ip').innerText = data.ip)
-            .catch(() => document.getElementById('ip').innerText = '127.0.0.1');
-        
-        const ua = navigator.userAgent;
-        let userOS = "Unknown OS";
-        if (ua.indexOf("Windows NT 10.0") !== -1) userOS = "Win 10/11";
-        else if (ua.indexOf("Android") !== -1) userOS = "Android";
-        else if (ua.indexOf("iPhone") !== -1 || ua.indexOf("iPad") !== -1) userOS = "iOS";
-        else if (ua.indexOf("Mac") !== -1) userOS = "macOS";
-        document.getElementById('os').innerText = userOS;
-
-        let userBrowser = "Browser";
-        if (ua.indexOf("Chrome") !== -1 && ua.indexOf("Safari") !== -1 && ua.indexOf("Edge") === -1) userBrowser = "Chrome";
-        else if (ua.indexOf("Safari") !== -1 && ua.indexOf("Chrome") === -1) userBrowser = "Safari";
-        else if (ua.indexOf("Firefox") !== -1) userBrowser = "Firefox";
-        document.getElementById('browser').innerText = userBrowser;
+            music.play().catch(() => {});
+            overlay.style.display = 'none';
+            mainContent.classList.remove('hidden');
+        });
     </script>
 </body>
 </html>
