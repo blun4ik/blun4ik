@@ -1,30 +1,36 @@
-/* Базовые стили для темной хакерской темы */
+/* Эффект старого ЭЛТ-монитора (сканирующие линии) */
 body {
     margin: 0;
     padding: 0;
-    background-color: #0a0a0a;
+    background-color: #0d0d0d;
     color: #ffffff;
     font-family: 'Courier New', Courier, monospace;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    overflow-x: hidden;
+    overflow: hidden;
 }
 
-/* Стили прелоадера / заставки */
+.crt::after {
+    content: " ";
+    display: block;
+    position: fixed;
+    top: 0; left: 0; bottom: 0; right: 0;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+    z-index: 99999;
+    background-size: 100% 4px, 6px 100%;
+    pointer-events: none;
+}
+
+/* Прелоадер */
 .overlay {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: #000000;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-color: #050505;
+    display: flex; justify-content: center; align-items: center;
     z-index: 9999;
-    transition: opacity 0.5s ease;
+    transition: opacity 0.6s ease;
 }
 
 .enter-btn {
@@ -32,109 +38,201 @@ body {
     border: 2px solid #ff0055;
     color: #ff0055;
     padding: 15px 30px;
-    font-size: 18px;
+    font-size: 16px;
+    font-family: inherit;
     cursor: pointer;
     text-transform: uppercase;
     letter-spacing: 2px;
-    box-shadow: 0 0 15px #ff0055;
+    box-shadow: 0 0 15px #ff0055, inset 0 0 10px #ff0055;
     text-shadow: 0 0 5px #ff0055;
-    transition: 0.3s;
+    animation: pulse 1.5s infinite;
 }
 
-.enter-btn:hover {
-    background: #ff0055;
-    color: #000;
-    box-shadow: 0 0 25px #ff0055;
+@keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 0.9; }
+    50% { transform: scale(1.03); opacity: 1; box-shadow: 0 0 25px #ff0055, inset 0 0 15px #ff0055; }
 }
 
-/* Основной контейнер страницы */
+/* Контейнер */
 .container {
     text-align: center;
-    max-width: 500px;
-    width: 90%;
-    padding: 20px;
-    background: rgba(20, 20, 20, 0.8);
-    border: 1px solid #333;
-    border-radius: 10px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+    max-width: 440px;
+    width: 88%;
+    padding: 25px;
+    background: rgba(18, 18, 18, 0.9);
+    border: 1px solid #252525;
+    border-radius: 4px;
+    box-shadow: 0 0 35px rgba(0, 0, 0, 0.95);
+    position: relative;
 }
 
-h1 {
-    font-size: 2.5rem;
-    margin-bottom: 20px;
-    color: #ff0055;
-    text-shadow: 0 0 10px rgba(255, 0, 85, 0.5);
+/* --- АНИМАЦИЯ ГЛИТЧА ТЕКСТА --- */
+.neon-title {
+    font-size: 3.5rem;
+    font-weight: 900;
+    margin: 10px 0;
+    text-transform: uppercase;
+    color: #fff;
+    letter-spacing: -2px;
+    text-shadow: 0 0 10px #ff0055, 0 0 20px #ff0055;
+    position: relative;
+    animation: flicker 2s infinite alternate;
 }
 
-/* Информационные плашки */
+@keyframes flicker {
+    0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+        text-shadow: 0 0 8px #ff0055, 0 0 15px #ff0055, 0 0 30px #ff0055;
+    }
+    20%, 24%, 55% {        
+        text-shadow: none;
+        color: #333;
+    }
+}
+
+/* --- АНИМАЦИЯ ПИКСЕЛЬНОГО БЫЧКА --- */
+.pixel-cigarette-wrapper {
+    position: relative;
+    width: 100px;
+    height: 70px;
+    margin: 20px auto 10px auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+/* Тело сигареты */
+.pixel-cigarette {
+    width: 45px;
+    height: 12px;
+    background: #ffffff;
+    position: relative;
+    border: 2px solid #000;
+    box-shadow: 4px 4px 0 rgba(0,0,0,0.4);
+    display: flex;
+    justify-content: space-between;
+    transform: rotate(-10deg);
+    animation: cigarette-float 4s ease-in-out infinite;
+}
+
+/* Оранжевый фильтр бычка */
+.pixel-cigarette .filter {
+    width: 14px;
+    height: 100%;
+    background: #e67e22;
+    border-right: 2px solid #000;
+}
+
+/* Тлеющий уголёк */
+.pixel-cigarette .ash {
+    width: 6px;
+    height: 100%;
+    background: #ff3300;
+    box-shadow: 0 0 10px #ff3300, 2px 0 4px #ffcc00;
+    animation: burn 1s ease-in-out infinite alternate;
+}
+
+/* Частицы дыма */
+.smoke-particles {
+    position: absolute;
+    top: 10px;
+    right: 22px;
+    display: flex;
+    gap: 8px;
+}
+
+.smoke-particles span {
+    display: block;
+    width: 6px;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.4);
+    box-shadow: 0 0 4px rgba(255, 255, 255, 0.2);
+    animation: raise 2s linear infinite;
+    animation-delay: calc(var(--i) * -0.6s);
+}
+
+@keyframes raise {
+    0% { transform: translateY(30px) scale(1) translateX(0); opacity: 0; }
+    30% { opacity: 0.6; }
+    50% { transform: translateY(10px) scale(1.5) translateX(-5px); }
+    100% { transform: translateY(-20px) scale(0.5) translateX(8px); opacity: 0; }
+}
+
+@keyframes cigarette-float {
+    0%, 100% { transform: rotate(-10deg) translateY(0); }
+    50% { transform: rotate(-14deg) translateY(-6px); }
+}
+
+@keyframes burn {
+    0% { background: #ff3300; box-shadow: 0 0 6px #ff3300; }
+    100% { background: #ffaa00; box-shadow: 0 0 14px #ff5500; }
+}
+
+/* --- СТИЛИ БЛОКОВ СТАТУСА И ЦИТАТЫ (СИГАРЕТНЫЙ НЕОН) --- */
 .status-box, .quote {
-    background: rgba(0, 0, 0, 0.5);
-    border-left: 3px solid #ff0055;
-    padding: 10px 15px;
-    margin-bottom: 20px;
+    background: #111111;
+    border: 1px solid #222;
+    border-left: 4px solid #ff3300; /* Красный уголёк */
+    box-shadow: inset 5px 0 10px rgba(255, 51, 0, 0.05);
+    padding: 12px;
+    margin-bottom: 15px;
     text-align: left;
-    font-size: 0.9rem;
-    line-height: 1.5;
+    font-size: 0.85rem;
+    line-height: 1.6;
 }
 
 .quote {
-    border-left-color: #00ffcc;
+    border-left-color: #00ffcc; /* Фосфорный дымный цвет */
+    box-shadow: inset 5px 0 10px rgba(0, 255, 204, 0.05);
     text-align: center;
     font-style: italic;
+    color: #d1d1d1;
 }
 
-/* Переключатель языков */
+.blink-green {
+    color: #00ffcc;
+    text-shadow: 0 0 5px rgba(0, 255, 204, 0.5);
+    animation: text-blink 1s steps(2, start) infinite;
+}
+
+@keyframes text-blink { to { visibility: hidden; } }
+
+/* Языки */
 .languages {
-    margin-bottom: 25px;
-    color: #666;
-}
-.languages span {
-    margin: 0 5px;
-    cursor: pointer;
-}
-.languages span:hover {
-    color: #fff;
+    margin: 15px 0;
+    color: #444;
+    font-size: 0.8rem;
+    letter-spacing: 4px;
 }
 
-/* Кнопки ссылок */
-.links {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
+/* Ссылки */
+.links { display: flex; flex-direction: column; gap: 10px; }
 
 .btn {
     display: block;
-    background: #111;
-    border: 1px solid #333;
-    color: #aaa;
+    background: #141414;
+    border: 1px solid #282828;
+    color: #888;
     padding: 12px;
     text-decoration: none;
-    border-radius: 5px;
-    transition: 0.3s ease;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    transition: all 0.2s ease;
 }
 
 .btn:hover {
     background: #ff0055;
     color: #fff;
     border-color: #ff0055;
-    box-shadow: 0 0 10px rgba(255, 0, 85, 0.4);
-    transform: translateY(-2px);
+    box-shadow: 0 0 15px rgba(255, 0, 85, 0.6);
+    transform: translateY(-1px);
 }
 
-/* Утилиты анимаций */
-.hidden {
-    opacity: 0;
-    transform: scale(0.95);
-}
-
-.fade-out {
-    opacity: 0;
-    pointer-events: none;
-}
-
+/* Анимации появления */
+.hidden { opacity: 0; transform: translateY(10px); }
+.fade-out { opacity: 0; pointer-events: none; }
 .fade-in {
     opacity: 1;
-    transform: scale(1);
-    transition: opacity 0.8s ease, transform 0.8s ease;
+    transform: translateY(0);
+    transition: opacity 0.5s ease, transform 0.5s ease;
 }
