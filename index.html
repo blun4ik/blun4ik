@@ -3,72 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>blun4ik</title>
+    <title>blun4ik NOKIA</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body class="crt">
+<body>
 
     <!-- Фоновый трек -->
     <audio id="bg-music" src="music.mp3" loop></audio>
 
-    <!-- Заставка прелоадера -->
+    <!-- Заставка прелоадера Nokia -->
     <div class="overlay" id="overlay">
-        <button class="enter-btn" id="enter-btn">Press Enter / Click To Continue</button>
+        <div class="nokia-boot">
+            <div class="hands-animation">🤝</div>
+            <button class="enter-btn" id="enter-btn">Click To Start</button>
+        </div>
     </div>
 
-    <!-- Основной контент страницы -->
-    <div class="container hidden" id="main-content">
-        
-        <!-- Заголовок с эффектом мерцания и глитча -->
-        <h1 class="neon-title" data-text="blun4ik">blun4ik</h1>
-        
-        <!-- Анимированный пиксельный бычок сигареты с дымом -->
-        <div class="pixel-cigarette-wrapper">
-            <div class="smoke-particles">
-                <span style="--i:1;"></span>
-                <span style="--i:2;"></span>
-                <span style="--i:3;"></span>
+    <!-- Корпус и экран телефона -->
+    <div class="nokia-phone-body">
+        <div class="nokia-screen">
+            
+            <!-- Верхняя статус-панель Nokia -->
+            <div class="nokia-top-bar">
+                <div class="signal">▰▰▰▰▱</div>
+                <div class="operator">NOKIA</div>
+                <div class="battery">▰▰▰▰▰</div>
             </div>
-            <div class="pixel-cigarette">
-                <div class="filter"></div>
-                <div class="ash"></div>
+
+            <!-- Основной контент внутри экрана -->
+            <div class="nokia-content hidden" id="main-content">
+                <h1 class="nokia-title">blun4ik</h1>
+                
+                <!-- Анимированный пиксельный бычок сигареты -->
+                <div class="pixel-cigarette-wrapper">
+                    <div class="smoke-particles">
+                        <span style="--i:1;"></span>
+                        <span style="--i:2;"></span>
+                    </div>
+                    <div class="pixel-cigarette">
+                        <div class="filter"></div>
+                        <div class="ash"></div>
+                    </div>
+                </div>
+                
+                <!-- Блок статусов в стиле Nokia Menu -->
+                <div class="nokia-menu-box">
+                    <p>IP: <span id="ip">...</span></p>
+                    <p>OS: <span id="os">...</span></p>
+                    <p>BROWSER: <span id="browser">...</span></p>
+                    <p>SESSION: <span>READY 🚬</span></p>
+                </div>
+
+                <!-- Текст песни -->
+                <div class="nokia-quote">
+                    <p>
+                        🚬 Туши бычок, потом сходи с ума<br>
+                        На моих пальцах кровь, я знаю, это не со зла<br>
+                        Сказала всё, скорей запри сарай<br>
+                        Ты крутишь у виска ножом... 🚬
+                    </p>
+                </div>
+
+                <!-- Кнопки в стиле списков старого меню -->
+                <div class="nokia-links">
+                    <a href="https://t.me" target="_blank" class="nokia-btn">[ TELEGRAM ]</a>
+                    <a href="https://t.me" target="_blank" class="nokia-btn">[ BOT ]</a>
+                    <a href="https://tiktok.com" target="_blank" class="nokia-btn">[ TIKTOK ]</a>
+                    <a href="https://twitch.tv" target="_blank" class="nokia-btn">[ TWITCH ]</a>
+                </div>
             </div>
-        </div>
-        
-        <!-- Блок статусов (Терминал) -->
-        <div class="status-box">
-            <p>> IP-АДРЕС: <span id="ip">Определяем...</span></p>
-            <p>> СИСТЕМА: <span id="os">Определяем...</span></p>
-            <p>> БРАУЗЕР: <span id="browser">Определяем...</span></p>
-            <p>> ТИП УСТРОЙСТВА: <span id="device">Определяем...</span></p>
-            <p>> СТАТУС СЕССИИ: <span class="blink-green">Готов к использованию 🚬</span></p>
-        </div>
-
-        <!-- Текст песни -->
-        <div class="quote">
-            <p>
-                🚬 Туши бычок, потом сходи с ума<br>
-                На моих пальцах кровь, я знаю, это не со зла<br>
-                Сказала всё, скорей запри сарай<br>
-                Ты крутишь у виска ножом<br>
-                Утекай, в подворотне я буду их ждать<br>
-                Хочешь нас насадить на крючок<br>
-                Я знаю, ты очень устала бежать<br>
-                Я уже падаю с ног 🚬
-            </p>
-        </div>
-
-        <!-- Языковая панель -->
-        <div class="languages">
-            <span>UA</span> <span>RU</span> <span>EN</span>
-        </div>
-
-        <!-- Кнопки с вашими ссылками -->
-        <div class="links">
-            <a href="https://t.me" target="_blank" class="btn">Telegram Канал</a>
-            <a href="https://t.me" target="_blank" class="btn">Бот обратной связи</a>
-            <a href="https://tiktok.com" target="_blank" class="btn">TikTok</a>
-            <a href="https://twitch.tv" target="_blank" class="btn">Twitch</a>
+            
         </div>
     </div>
 
@@ -80,7 +84,7 @@
 
         function startPage() {
             music.currentTime = 0; 
-            music.play().catch(err => console.log("Браузер заблокировал автозвук:", err));
+            music.play().catch(err => console.log("Автозвук заблокирован:", err));
             overlay.classList.add('fade-out');
             setTimeout(() => {
                 overlay.style.display = 'none';
@@ -90,38 +94,24 @@
         }
 
         enterBtn.addEventListener('click', startPage);
-        window.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter') startPage();
-        });
 
-        // 1. Запрос IP адреса
         fetch('https://ipify.org')
             .then(res => res.json())
             .then(data => document.getElementById('ip').innerText = data.ip)
             .catch(() => document.getElementById('ip').innerText = '127.0.0.1');
         
-        // 2. Определение типа устройства
         const ua = navigator.userAgent;
-        document.getElementById('device').innerText = ua.includes('Mobile') ? 'Смартфон / Планшет' : 'Персональный компьютер (ПК)';
-
-        // 3. Автоопределение Операционной Системы (ОС)
-        let userOS = "Неизвестная ОС";
-        if (ua.indexOf("Windows NT 10.0") !== -1) userOS = "Windows 10/11";
-        else if (ua.indexOf("Windows NT 6.2") !== -1) userOS = "Windows 8";
-        else if (ua.indexOf("Windows NT 6.1") !== -1) userOS = "Windows 7";
-        else if (ua.indexOf("Mac") !== -1) userOS = "macOS";
+        let userOS = "Unknown OS";
+        if (ua.indexOf("Windows NT 10.0") !== -1) userOS = "Win 10/11";
         else if (ua.indexOf("Android") !== -1) userOS = "Android";
-        else if (ua.indexOf("iPhone") !== -1 || ua.indexOf("iPad") !== -1) userOS = "iOS (Apple)";
-        else if (ua.indexOf("Linux") !== -1) userOS = "Linux";
+        else if (ua.indexOf("iPhone") !== -1 || ua.indexOf("iPad") !== -1) userOS = "iOS";
+        else if (ua.indexOf("Mac") !== -1) userOS = "macOS";
         document.getElementById('os').innerText = userOS;
 
-        // 4. Автоопределение Браузера
-        let userBrowser = "Неизвестный браузер";
-        if (ua.indexOf("Chrome") !== -1 && ua.indexOf("Safari") !== -1 && ua.indexOf("Edge") === -1) userBrowser = "Google Chrome";
-        else if (ua.indexOf("Safari") !== -1 && ua.indexOf("Chrome") === -1) userBrowser = "Apple Safari";
-        else if (ua.indexOf("Firefox") !== -1) userBrowser = "Mozilla Firefox";
-        else if (ua.indexOf("Edge") !== -1) userBrowser = "Microsoft Edge";
-        else if (ua.indexOf("OPR") !== -1 || ua.indexOf("Opera") !== -1) userBrowser = "Opera";
+        let userBrowser = "Browser";
+        if (ua.indexOf("Chrome") !== -1 && ua.indexOf("Safari") !== -1 && ua.indexOf("Edge") === -1) userBrowser = "Chrome";
+        else if (ua.indexOf("Safari") !== -1 && ua.indexOf("Chrome") === -1) userBrowser = "Safari";
+        else if (ua.indexOf("Firefox") !== -1) userBrowser = "Firefox";
         document.getElementById('browser').innerText = userBrowser;
     </script>
 </body>
