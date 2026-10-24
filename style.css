@@ -53,7 +53,7 @@ body {
     background: #34495e;
     padding: 25px;
     border-radius: 20px;
-    border: 6px solid #2c3e50;
+    border: 4px solid #2c3e50;
     box-shadow: 0 15px 35px rgba(0,0,0,0.6);
     max-width: 340px;
     width: 88%;
@@ -106,7 +106,7 @@ body {
 
 /* Анимация ретро-мигания для текста заголовка */
 .blink-text {
-    animation: nokia-blink 0.8s steps(2, start) infinite;
+    animation: nokia-blink 1.2s steps(2, start) infinite;
 }
 
 @keyframes nokia-blink {
@@ -194,9 +194,9 @@ body {
     margin: 2px 0;
 }
 
-/* --- АНИМАЦИЯ БЕГУЩЕЙ СТРОКИ NOKIA --- */
+/* --- СКОРОСТЬ СТРОКИ ПОД ТРЕК И НЕПРЕРЫВНЫЙ ЦИКЛ --- */
 .nokia-quote {
-    border: 3px solid #222b15;
+    border: 2px solid #222b15;
     margin-bottom: 12px;
     overflow: hidden;
     position: relative;
@@ -207,14 +207,14 @@ body {
 
 .marquee-text {
     display: inline-block;
-    padding-left: 90%;
-    animation: nokia-marquee 30s linear infinite;
+    animation: nokia-marquee 13.5s linear infinite;
     font-size: 11px;
     text-transform: uppercase;
 }
 
+/* Дублируем текст внутри span в HTML если нужно, но для Nokia-стиля запускаем от правого края */
 @keyframes nokia-marquee {
-    0% { transform: translate3d(0, 0, 0); }
+    0% { transform: translate3d(100%, 0, 0); }
     100% { transform: translate3d(-100%, 0, 0); }
 }
 
@@ -241,7 +241,7 @@ body {
     color: #879774;
 }
 
-/* Утилиты видимости интерфейса */
+/* Утилиты видимости */
 .hidden { opacity: 0; }
 .fade-out { opacity: 0; pointer-events: none; }
 .fade-in { opacity: 1; transition: opacity 0.4s ease; }
