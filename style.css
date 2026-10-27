@@ -207,7 +207,7 @@ body {
 
 .marquee-text {
     display: inline-block;
-    animation: nokia-marquee 13.5s linear infinite;
+    animation: nokia-marquee 29s linear infinite;
     font-size: 11px;
     text-transform: uppercase;
 }
